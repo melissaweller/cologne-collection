@@ -81,57 +81,63 @@
         };
 
         function filterFragrances(filter) {
-            const buttons = document.querySelectorAll('.filter-btn');
-            
-            if (filter === "All") {
-                activeFilters = [];
+        const buttons = document.querySelectorAll('.filter-btn');
+        
+        // 1. Handle "All" and Category Logic (Same as before)
+        if (filter === "All") {
+            activeFilters = [];
+        } else {
+            const categories = {
+                'Winter': 'season', 'Spring': 'season', 'Summer': 'season', 'Fall': 'season',
+                'Day': 'time', 'Night': 'time'
+            };
+            const category = categories[filter];
+
+            if (activeFilters.includes(filter)) {
+                activeFilters = activeFilters.filter(f => f !== filter);
             } else {
-                const category = categories[filter];
-
-                if (activeFilters.includes(filter)) {
-                    // If already active, toggle it off
-                    activeFilters = activeFilters.filter(f => f !== filter);
-                } else {
-                    // Remove any existing filter from the SAME category before adding the new one
-                    activeFilters = activeFilters.filter(f => categories[f] !== category);
-                    activeFilters.push(filter);
-                }
+                activeFilters = activeFilters.filter(f => categories[f] !== category);
+                activeFilters.push(filter);
             }
-
-            // Update button colors (CSS class)
-            buttons.forEach(btn => {
-                const btnText = btn.textContent.trim();
-                if (activeFilters.includes(btnText)) {
-                    btn.classList.add('active');
-                } else {
-                    btn.classList.remove('active');
-                }
-            });
-
-            // Filtering Logic
-            let filtered = fragrances;
-            if (activeFilters.length > 0) {
-                filtered = fragrances.filter(f => {
-                    // Must be 'good' or 'ok' for EVERY active filter
-                    return activeFilters.every(filterName => {
-                        const match = [...f.season, ...f.time].find(i => i.name === filterName);
-                        return match && (match.status === "good" || match.status === "ok");
-                    });
-                });
-
-                // Sorting: Priority to 'good' status based on the first selected filter
-                const primary = activeFilters[0];
-                filtered.sort((a, b) => {
-                    const statusA = [...a.season, ...a.time].find(i => i.name === primary)?.status;
-                    const statusB = [...b.season, ...b.time].find(i => i.name === primary)?.status;
-                    if (statusA === "good" && statusB === "ok") return -1;
-                    if (statusA === "ok" && statusB === "good") return 1;
-                    return 0;
-                });
-            }
-
-            displayFragrances(filtered);
         }
+
+        // Update button visual state
+        buttons.forEach(btn => {
+            if (activeFilters.includes(btn.textContent.trim())) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+
+        // 2. Filter out the "Bad" (Red) items
+        let filtered = fragrances.filter(f => {
+            return activeFilters.every(filterName => {
+                const match = [...f.season, ...f.time].find(i => i.name === filterName);
+                return match && (match.status === "good" || match.status === "ok");
+            });
+        });
+
+        // 3. NEW SORTING LOGIC: Score-based sorting
+        if (activeFilters.length > 0) {
+            filtered.sort((a, b) => {
+                const getScore = (frag) => {
+                    let score = 0;
+                    activeFilters.forEach(filterName => {
+                        const match = [...frag.season, ...frag.time].find(i => i.name === filterName);
+                        if (match && match.status === "good") score += 2; // Green = 2 points
+                        if (match && match.status === "ok") score += 1;   // Blue = 1 point
+                    });
+                    return score;
+                };
+
+                // Higher scores (more greens) go to the top
+                return getScore(b) - getScore(a);
+            });
+        }
+
+        displayFragrances(filtered);
+    }
 
         function handleSearch() {
         const searchTerm = document.getElementById('searchInput').value.toLowerCase();
