@@ -3,7 +3,7 @@
 
 <head>
     <title>Jon's Cologne Collection</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="favicon.png">
     <meta charset="utf-8">
@@ -14,13 +14,18 @@
         <h1>Jon's Cologne Collection</h1>
     </header>
 
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search cologne or brand..." onkeyup="handleSearch()">
+    </div>
+
     <div class="filters">
         <button class="filter-btn" onclick="filterFragrances('All')">All</button>
+        <span class="divider">|</span>
         <button class="filter-btn" onclick="filterFragrances('Winter')">Winter</button>
         <button class="filter-btn" onclick="filterFragrances('Spring')">Spring</button>
         <button class="filter-btn" onclick="filterFragrances('Summer')">Summer</button>
         <button class="filter-btn" onclick="filterFragrances('Fall')">Fall</button>
-        <button class="filter-btn" onclick="filterFragrances('Day')">Day</button>
+        <span class="divider">|</span> <button class="filter-btn" onclick="filterFragrances('Day')">Day</button>
         <button class="filter-btn" onclick="filterFragrances('Night')">Night</button>
     </div>
 
@@ -67,55 +72,91 @@
 
         displayFragrances(fragrances);
 
-        // function filterFragrances(filter) {
-        //     if (filter === "All") {
-        //         displayFragrances(fragrances);
-        //         return;
-        //     }
+        let activeFilters = [];
 
-        //     const filtered = fragrances.filter(f => {
-        //         // Check Seasons: matching the name AND status must be 'good'
-        //         const matchSeason = f.season.some(s => s.name === filter && s.status === "good");
-                
-        //         // Check Time: matching the name AND status must be 'good'
-        //         const matchTime = f.time.some(t => t.name === filter && t.status === "good");
+        // Define which button belongs to which category
+        const categories = {
+            'Winter': 'season', 'Spring': 'season', 'Summer': 'season', 'Fall': 'season',
+            'Day': 'time', 'Night': 'time'
+        };
 
-        //         return matchSeason || matchTime;
-        //     });
-
-        //     displayFragrances(filtered);
-        // }
         function filterFragrances(filter) {
-    // 1. If 'All' is selected, show every fragrance in the database
-    if (filter === "All") {
-        displayFragrances(fragrances);
-        return;
-    }
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            if (filter === "All") {
+                activeFilters = [];
+            } else {
+                const category = categories[filter];
 
-    // 2. Filter: Only keep it if it is Good or Ok for this specific filter
-    // If it is 'bad' or not listed for this season, it disappears
-    const filtered = fragrances.filter(f => {
-        // Look for the specific season/time that matches the button clicked
-        const match = [...f.season, ...f.time].find(i => i.name === filter);
-        
-        // ONLY return true if it was found and the status is NOT 'bad'
-        return match && (match.status === "good" || match.status === "ok");
-    });
+                if (activeFilters.includes(filter)) {
+                    // If already active, toggle it off
+                    activeFilters = activeFilters.filter(f => f !== filter);
+                } else {
+                    // Remove any existing filter from the SAME category before adding the new one
+                    activeFilters = activeFilters.filter(f => categories[f] !== category);
+                    activeFilters.push(filter);
+                }
+            }
 
-    // 3. Sort: Put the 'good' (Green) ones at the very top
-    filtered.sort((a, b) => {
-        const statusA = [...a.season, ...a.time].find(i => i.name === filter)?.status;
-        const statusB = [...b.season, ...b.time].find(i => i.name === filter)?.status;
+            // Update button colors (CSS class)
+            buttons.forEach(btn => {
+                const btnText = btn.textContent.trim();
+                if (activeFilters.includes(btnText)) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
 
-        // If A is 'good' and B is 'ok', A comes first
-        if (statusA === "good" && statusB === "ok") return -1;
-        // If A is 'ok' and B is 'good', B comes first
-        if (statusA === "ok" && statusB === "good") return 1;
-        return 0;
-    });
+            // Filtering Logic
+            let filtered = fragrances;
+            if (activeFilters.length > 0) {
+                filtered = fragrances.filter(f => {
+                    // Must be 'good' or 'ok' for EVERY active filter
+                    return activeFilters.every(filterName => {
+                        const match = [...f.season, ...f.time].find(i => i.name === filterName);
+                        return match && (match.status === "good" || match.status === "ok");
+                    });
+                });
 
-    displayFragrances(filtered);
-}
+                // Sorting: Priority to 'good' status based on the first selected filter
+                const primary = activeFilters[0];
+                filtered.sort((a, b) => {
+                    const statusA = [...a.season, ...a.time].find(i => i.name === primary)?.status;
+                    const statusB = [...b.season, ...b.time].find(i => i.name === primary)?.status;
+                    if (statusA === "good" && statusB === "ok") return -1;
+                    if (statusA === "ok" && statusB === "good") return 1;
+                    return 0;
+                });
+            }
+
+            displayFragrances(filtered);
+        }
+
+        function handleSearch() {
+        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+
+        // 1. First, apply your existing activeFilters logic
+        let filtered = fragrances;
+
+        if (activeFilters.length > 0) {
+            filtered = fragrances.filter(f => {
+                return activeFilters.every(filterName => {
+                    const match = [...f.season, ...f.time].find(i => i.name === filterName);
+                    return match && (match.status === "good" || match.status === "ok");
+                });
+            });
+        }
+
+        // 2. Then, filter further by the search term (Brand or Name)
+        const searched = filtered.filter(f => 
+            f.name.toLowerCase().includes(searchTerm) || 
+            f.brand.toLowerCase().includes(searchTerm)
+        );
+
+        displayFragrances(searched);
+        }
+
     </script>
 
     <footer>

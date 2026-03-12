@@ -75,32 +75,14 @@ const fragrances = [
     "brand": "Lattafa",
     "name": "Asad - Elixir",
     "season": [
-      {
-        "name": "Winter",
-        "status": "good"
-      },
-      {
-        "name": "Spring",
-        "status": "bad"
-      },
-      {
-        "name": "Summer",
-        "status": "bad"
-      },
-      {
-        "name": "Fall",
-        "status": "good"
-      }
+      {"name": "Winter","status": "good"},
+      {"name": "Spring","status": "bad"},
+      {"name": "Summer","status": "bad"},
+      {"name": "Fall","status": "good"}
     ],
     "time": [
-      {
-        "name": "Day",
-        "status": "ok"
-      },
-      {
-        "name": "Night",
-        "status": "good"
-      }
+      {"name": "Day","status": "ok"},
+      {"name": "Night","status": "good"}
     ],
     "top": "Pink Pepper, Saffron, Grapefruit",
     "middle": "Tobacco, Vanilla, Cedar",
@@ -111,32 +93,14 @@ const fragrances = [
     "brand": "Lattafa",
     "name": "Asad",
     "season": [
-      {
-        "name": "Winter",
-        "status": "good"
-      },
-      {
-        "name": "Spring",
-        "status": "ok"
-      },
-      {
-        "name": "Summer",
-        "status": "bad"
-      },
-      {
-        "name": "Fall",
-        "status": "good"
-      }
+      {"name": "Winter","status": "good"},
+      {"name": "Spring","status": "ok"},
+      {"name": "Summer","status": "bad"},
+      {"name": "Fall","status": "good"}
     ],
     "time": [
-      {
-        "name": "Day",
-        "status": "ok"
-      },
-      {
-        "name": "Night",
-        "status": "good"
-      }
+      {"name": "Day","status": "ok"},
+      {"name": "Night","status": "good"}
     ],
     "top": "Black Pepper, Tobacco, Pineapple",
     "middle": "Patchouli, Coffee, Iris",
@@ -147,32 +111,14 @@ const fragrances = [
     "brand": "Lattafa",
     "name": "Bade'e Al Oud for Glory",
     "season": [
-      {
-        "name": "Winter",
-        "status": "good"
-      },
-      {
-        "name": "Spring",
-        "status": "ok"
-      },
-      {
-        "name": "Summer",
-        "status": "bad"
-      },
-      {
-        "name": "Fall",
-        "status": "good"
-      }
+      {"name": "Winter","status": "good"},
+      {"name": "Spring","status": "ok"},
+      {"name": "Summer","status": "bad"},
+      {"name": "Fall","status": "good"}
     ],
     "time": [
-      {
-        "name": "Day",
-        "status": "ok"
-      },
-      {
-        "name": "Night",
-        "status": "good"
-      }
+      {"name": "Day","status": "ok"},
+      {"name": "Night","status": "good"}
     ],
     "top": "Saffron, Nutmeg, Lavendar",
     "middle": "Agarwood (oud), Patchouli",
@@ -358,6 +304,42 @@ const fragrances = [
     "middle": "Caramel, Tonka Bean",
     "base": "Vetiver",
     "image": "https://fimgs.net/mdimg/perfume-thumbs/dark-375x500.100487.avif"
+  },
+  {
+    "brand": "Bad Boy",
+    "name": "Men",
+    "season": [
+      {
+        "name": "Winter",
+        "status": "good"
+      },
+      {
+        "name": "Spring",
+        "status": "ok"
+      },
+      {
+        "name": "Summer",
+        "status": "bad"
+      },
+      {
+        "name": "Fall",
+        "status": "good"
+      }
+    ],
+    "time": [
+      {
+        "name": "Day",
+        "status": "ok"
+      },
+      {
+        "name": "Night",
+        "status": "good"
+      }
+    ],
+    "top": "White Pepper, Bergamot, Pink Pepper",
+    "middle": "Cedarwood, Clary Sage",
+    "base": "Tonka Bean, Cacao",
+    "image": "https://fimgs.net/mdimg/perfume-thumbs/dark-375x500.55449.avif"
   },
   {
     "brand": "Bad Boy",
@@ -790,42 +772,6 @@ const fragrances = [
     "middle": "Anise, Neroli, Geranium, Lily-of-the-Valley",
     "base": "Vanilla, Almond, Tonka Bean, Benzoin, Cedar",
     "image": "https://fimgs.net/mdimg/perfume-thumbs/dark-375x500.39.avif"
-  },
-  {
-    "brand": "Bad Boy",
-    "name": "Men",
-    "season": [
-      {
-        "name": "Winter",
-        "status": "good"
-      },
-      {
-        "name": "Spring",
-        "status": "ok"
-      },
-      {
-        "name": "Summer",
-        "status": "bad"
-      },
-      {
-        "name": "Fall",
-        "status": "good"
-      }
-    ],
-    "time": [
-      {
-        "name": "Day",
-        "status": "ok"
-      },
-      {
-        "name": "Night",
-        "status": "good"
-      }
-    ],
-    "top": "White Pepper, Bergamot, Pink Pepper",
-    "middle": "Cedarwood, Clary Sage",
-    "base": "Tonka Bean, Cacao",
-    "image": "https://fimgs.net/mdimg/perfume-thumbs/dark-375x500.55449.avif"
   },
   {
     "brand": "Viktor & Rolf",

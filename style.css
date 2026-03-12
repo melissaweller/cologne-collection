@@ -30,15 +30,6 @@ color:white;
 font-size:22px;
 }
 
-/* .gallery{
-display:grid;
-grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
-gap:20px;
-padding:20px;
-max-width:1700px;
-margin:auto;
-} */
-
 .gallery {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -95,7 +86,6 @@ line-height:1.4;
 color:blue;
 } 
 
-
 .notes b{color:black;}
 
 .card.open .notes{
@@ -124,6 +114,16 @@ border-radius:6px;
 cursor:pointer;
 font-family:'Courier New';
 font-size:14px;
+transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+/* Styling for the active filter buttons */
+.filter-btn.active {
+    background-color: #40407A; /* Darker color to show it's selected */
+    color: white;
+    border: 2px solid white;
+    transform: scale(1.1);
 }
 
 .filter-btn:hover{
@@ -144,29 +144,87 @@ background:#2c2c54;
 .badge.ok   { background-color: #007bff; } /* Blue (or use #ffc107 for yellow) */
 .badge.bad  { background-color: #dc3545; } /* Red */
 
-@media (max-width: 600px){
-
-.gallery{
-grid-template-columns: 1fr;
-padding:15px;
+.search-container {
+    text-align: center;
+    padding: 10px 20px;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
-.card{
-max-width:100%;
+#searchInput {
+    width: 100%;
+    padding: 12px 20px;
+    border-radius: 25px;
+    border: 2px solid #ffffff;
+    background-color: rgba(255, 255, 255, 0.9);
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 16px;
+    outline: none;
+    color: #40407A;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
-.card img{
-height:200px;
+#searchInput:focus {
+    border-color: #40407A;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
-.filters{
-flex-wrap:wrap;
-justify-content:center;
+/* Mobile adjustment */
+@media (max-width: 600px) {
+    .search-container {
+        padding: 10px;
+    }
+    #searchInput {
+        font-size: 14px; /* Prevents iOS from zooming in on focus */
+        padding: 10px 15px;
+    }
 }
 
-.filter-btn{
-padding:10px 16px;
-font-size:15px;
+@media (max-width: 600px) {
+    /* Change from 1fr to a grid that allows 2 columns */
+    .gallery {
+        grid-template-columns: repeat(2, 1fr); /* Forces exactly 2 columns */
+        gap: 10px;    /* Smaller gap between cards to save space */
+        padding: 10px;
+    }
+
+    .card {
+        padding: 10px; /* Reduced padding inside the box */
+        border-radius: 8px;
+    }
+
+    .card img {
+        height: 120px; /* Shorter image height so they don't get too long */
+    }
+
+    .name {
+        font-size: 14px; /* Smaller title */
+        line-height: 1.2;
+        margin-bottom: 4px;
+    }
+
+    .brand {
+        font-size: 12px;
+    }
+
+    /* Make badges smaller so they fit on one line if possible */
+    .badge {
+        padding: 2px 6px;
+        font-size: 9px;
+        border-radius: 8px;
+    }
+
+    /* Hide the detailed notes on mobile to keep the cards short */
+    /* Or make them very small */
+    .notes {
+        font-size: 10px;
+        display: none; /* Recommended: Hide notes on mobile for a cleaner 2-column look */
+    }
 }
 
+@media (max-width: 600px) {
+    .filters {
+        padding: 5px;
+        margin-bottom: 10px;
+    }
 }
