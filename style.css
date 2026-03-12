@@ -1,0 +1,172 @@
+* { box-sizing: border-box; }
+
+body {
+background-color: #8e8eca;
+color: #40407A;
+font-family:'Courier New';
+margin: 0;
+}
+
+a { text-decoration: none; }
+a:link { color: #3F2860; }
+a:hover { color: white; }
+
+li, dd { font-size: 90%; }
+
+footer {
+position: fixed;
+bottom: 0;
+width: 100%;
+text-align: center;
+color: black;
+background-color: white;
+font-family: 'Courier New';
+}
+
+h1{
+text-align:center;
+padding-top:1.5em;
+color:white;
+font-size:22px;
+}
+
+/* .gallery{
+display:grid;
+grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+gap:20px;
+padding:20px;
+max-width:1700px;
+margin:auto;
+} */
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-auto-rows: 1fr; /* This forces all cards in a row to the same height */
+    gap: 20px;
+    padding: 20px;
+    max-width: 1700px;
+    margin: auto;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:12px;
+box-shadow:0 4px 12px rgba(0,0,0,0.15);
+text-align:center;
+max-width:300px;
+margin:auto;
+height: 100%;        /* Fills the grid row height */
+    display: flex;       /* Allows internal alignment */
+    flex-direction: column; 
+    transition: transform 0.2s;
+}
+
+.card:hover{
+transform:scale(1.05);
+box-shadow:0 6px 14px rgba(0,0,0,0.2);
+}
+
+.card img{
+width:100%;
+height:140px;
+object-fit:contain;
+margin-bottom:10px;
+}
+
+.name{
+font-weight:bold;
+font-size:18px;
+margin-top:5px;
+}
+
+.tags{
+color:#666;
+font-size:14px;
+margin-top:3px;
+}
+
+.notes{
+margin-top:12px;
+font-size:13px;
+text-align:left;
+line-height:1.4;
+color:blue;
+} 
+
+
+.notes b{color:black;}
+
+.card.open .notes{
+max-height:200px;
+}
+
+.brand{
+font-size:14px;
+margin-bottom:6px;
+}
+
+.filters{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:10px;
+margin-bottom:20px;
+}
+
+.filter-btn{
+background:#40407A;
+color:white;
+border:none;
+padding:8px 14px;
+border-radius:6px;
+cursor:pointer;
+font-family:'Courier New';
+font-size:14px;
+}
+
+.filter-btn:hover{
+background:#2c2c54;
+} 
+
+.badge {
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    color: white;
+    margin: 2px;
+    display: inline-block;
+}
+
+/* The color fillings */
+.badge.good { background-color: #28a745; } /* Green */
+.badge.ok   { background-color: #007bff; } /* Blue (or use #ffc107 for yellow) */
+.badge.bad  { background-color: #dc3545; } /* Red */
+
+@media (max-width: 600px){
+
+.gallery{
+grid-template-columns: 1fr;
+padding:15px;
+}
+
+.card{
+max-width:100%;
+}
+
+.card img{
+height:200px;
+}
+
+.filters{
+flex-wrap:wrap;
+justify-content:center;
+}
+
+.filter-btn{
+padding:10px 16px;
+font-size:15px;
+}
+
+}
