@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Jon's Cologne Collection</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <header>
+        <h1>Jon's Cologne Collection</h1>
+    </header>
+
+    <div class="filters">
+        <button class="filter-btn" onclick="filterFragrances('All')">All</button>
+        <button class="filter-btn" onclick="filterFragrances('Winter')">Winter</button>
+        <button class="filter-btn" onclick="filterFragrances('Spring')">Spring</button>
+        <button class="filter-btn" onclick="filterFragrances('Summer')">Summer</button>
+        <button class="filter-btn" onclick="filterFragrances('Fall')">Fall</button>
+        <button class="filter-btn" onclick="filterFragrances('Day')">Day</button>
+        <button class="filter-btn" onclick="filterFragrances('Night')">Night</button>
+    </div>
+
+    <div class="gallery" id="gallery"></div>
+    <script src="fragrances.js"></script>
+    <script>
+        const gallery = document.getElementById("gallery");
+        function displayFragrances(data) {
+            const gallery = document.getElementById('gallery');
+            gallery.innerHTML = ''; 
+
+            data.forEach(fragrance => {
+                const card = document.createElement('div');
+                card.className = 'card';
+
+                // Helper function to create badges
+                const createBadges = (items) => {
+                    return items.map(item => 
+                        `<span class="badge ${item.status.toLowerCase()}">${item.name}</span>`
+                    ).join('');
+                };
+
+                card.innerHTML = `
+                    <img src="${fragrance.image || 'placeholder.jpg'}" alt="${fragrance.name}">
+                    <h3>${fragrance.brand}</h3>
+                    <h4>${fragrance.name}</h4>
+                    
+                    <div class="badge-container">
+                        ${createBadges(fragrance.season)}
+                    </div>
+                    <div class="badge-container">
+                        ${createBadges(fragrance.time)}
+                    </div>
+
+                    <div class="notes">
+                        <p><strong>Top:</strong> ${fragrance.top}</p>
+                        <p><strong>Middle:</strong> ${fragrance.middle}</p>
+                        <p><strong>Base:</strong> ${fragrance.base}</p>
+                    </div>
+                `;
+                gallery.appendChild(card);
+            });
+        }
+
+        displayFragrances(fragrances);
+
+        // function filterFragrances(filter) {
+        //     if (filter === "All") {
+        //         displayFragrances(fragrances);
+        //         return;
+        //     }
+
+        //     const filtered = fragrances.filter(f => {
+        //         // Check Seasons: matching the name AND status must be 'good'
+        //         const matchSeason = f.season.some(s => s.name === filter && s.status === "good");
+                
+        //         // Check Time: matching the name AND status must be 'good'
+        //         const matchTime = f.time.some(t => t.name === filter && t.status === "good");
+
+        //         return matchSeason || matchTime;
+        //     });
+
+        //     displayFragrances(filtered);
+        // }
+        function filterFragrances(filter) {
+    // 1. If 'All' is selected, show every fragrance in the database
+    if (filter === "All") {
+        displayFragrances(fragrances);
+        return;
+    }
+
+    // 2. Filter: Only keep it if it is Good or Ok for this specific filter
+    // If it is 'bad' or not listed for this season, it disappears
+    const filtered = fragrances.filter(f => {
+        // Look for the specific season/time that matches the button clicked
+        const match = [...f.season, ...f.time].find(i => i.name === filter);
+        
+        // ONLY return true if it was found and the status is NOT 'bad'
+        return match && (match.status === "good" || match.status === "ok");
+    });
+
+    // 3. Sort: Put the 'good' (Green) ones at the very top
+    filtered.sort((a, b) => {
+        const statusA = [...a.season, ...a.time].find(i => i.name === filter)?.status;
+        const statusB = [...b.season, ...b.time].find(i => i.name === filter)?.status;
+
+        // If A is 'good' and B is 'ok', A comes first
+        if (statusA === "good" && statusB === "ok") return -1;
+        // If A is 'ok' and B is 'good', B comes first
+        if (statusA === "ok" && statusB === "good") return 1;
+        return 0;
+    });
+
+    displayFragrances(filtered);
+}
+    </script>
+
+    <footer>
+        Copyright © 2026 Melissa Weller
+    </footer>
+</body>
+</html>
