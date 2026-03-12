@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Jon's Cologne Collection</title>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <header>
+        <h1>Jon's Cologne Collection</h1>
+    </header>
+
+    <div class="gallery" id="gallery"></div>
+    <script src="fragrances.js"></script>
+    <script>
+        const gallery = document.getElementById("gallery");
+
+        fragrances.forEach(f => {
+
+        const card = document.createElement("div");
+        card.className = "card";
+
+        card.innerHTML = `
+        <img src="${f.image}" alt="${f.name}">
+
+        <div class="name">${f.name}</div>
+        <div class="brand">${f.brand}</div>
+
+        <div class="tags">${f.season.join(" • ")}</div>
+        <div class="tags">${f.time.join(" / ")}</div>
+
+        <div class="notes">
+        <b>Top:</b> ${f.top}<br>
+        <b>Middle:</b> ${f.middle}<br>
+        <b>Base:</b> ${f.base}
+        </div>
+        `;
+
+        gallery.appendChild(card);
+        });
+    </script>
+
+    <footer>
+        Copyright © 2026 Melissa Weller
+    </footer>
+</body>
+</html>
