@@ -25,39 +25,15 @@ h1{text-align:center;
     font-size:22px;}
 
 .gallery {display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
             grid-auto-rows: 1fr; /* This forces all cards in a row to the same height */
             gap: 20px;
             padding: 20px;
-            max-width: 1700px;
+            max-width: auto;
             margin: auto;}
 
-/* .card {background: white;
-    padding: 12px; 
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    text-align: center;
-    max-width: 300px;
-    margin: auto;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.2s;}
-
-    .card img{width:100%;
-        height:140px;
-        object-fit:contain;
-        margin-bottom:10px;}
-
-.card h3 {margin: 8px 0 2px 0; 
-    font-size: 16px;}
-
-.card h4 {margin: 0 0 10px 0;
-    font-size: 14px;
-    color: #40407A;} */
-
 .card {background: white;
-    padding: 12px;           /* Less internal padding */
+    padding: 12px;          
     border-radius: 12px;
     text-align: center;
     display: flex;
@@ -81,7 +57,6 @@ h1{text-align:center;
 .card:hover{transform:scale(1.05);
             box-shadow:0 6px 14px rgba(0,0,0,0.2);}
 
-
 .name{font-weight:bold;
         font-size:18px;
         margin-top:5px;}
@@ -89,14 +64,6 @@ h1{text-align:center;
 .tags{color:#666;
         font-size:14px;
         margin-top:3px;}
-
-/* .notes{margin-top:12px;
-        font-size:13px;
-        text-align:left;
-        line-height:1.4;
-        color:blue;}  */
-
-/* .notes p {margin: 4px 0; } */
 
 .notes {margin-top: 8px;       
     padding-top: 5px;
@@ -136,17 +103,10 @@ h1{text-align:center;
 
 .filter-btn:hover{background:#2c2c54;} 
 
-/* .badge-container {display: block;
-        white-space: nowrap; 
-        overflow-x: hidden; 
-        margin-bottom: 4px;
-        width: 100%;
-        line-height: 1;} */
-
 .badge-container {
     display: block;
-    white-space: nowrap;    /* Keeps seasons/times on one line */
-    margin-bottom: 2px;     /* Tightens gap between season row and time row */
+    white-space: nowrap;  
+    margin-bottom: 2px;     
     line-height: 1;
 }
 
@@ -229,4 +189,38 @@ h1{text-align:center;
 
     .filters {padding: 5px;
         margin-bottom: 10px;}
+}
+
+
+
+.legend-container {display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 8px;}
+
+.legend-item {display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    color: white; /* Matches your header text */
+    font-weight: bold;}
+
+.legend-dot {width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 1px solid white;}
+
+/* Legend Colors matching your badges */
+.legend-dot.good { background-color: #28a745; }
+.legend-dot.ok   { background-color: #007bff; }
+.legend-dot.bad  { background-color: #dc3545; }
+
+/* Mobile adjustment to stack them if the screen is too narrow */
+@media (max-width: 600px) {
+    .legend-container {gap: 10px;
+        padding: 5px;}
+
+    .legend-item {font-size: 13px;}
 }
