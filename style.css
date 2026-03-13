@@ -188,9 +188,17 @@ background:#2c2c54;
         padding: 10px;
     }
 
-    .card {
+    /* .card {
         padding: 10px; /* Reduced padding inside the box */
         border-radius: 8px;
+    } */
+
+    .card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between; /* Pushes notes to the bottom */
+        height: 100%;
+        padding: 10px;
     }
 
     .card img {
@@ -214,12 +222,23 @@ background:#2c2c54;
         border-radius: 8px;
     }
 
-    /* Hide the detailed notes on mobile to keep the cards short */
-    /* Or make them very small */
+    @media (max-width: 600px) {
+    /* ... your other mobile styles ... */
+
     .notes {
-        font-size: 10px;
-        display: none; /* Recommended: Hide notes on mobile for a cleaner 2-column look */
+        display: block;      /* This brings the notes back */
+        font-size: 10px;    /* Makes the text small enough to fit */
+        line-height: 1.2;
+        margin-top: 10px;
+        text-align: left;    /* Easier to read when small */
+        border-top: 1px solid #eee;
+        padding-top: 5px;
     }
+
+    .notes b {
+        color: #8e8eca;    /* Makes the "Top/Middle/Base" labels stand out */
+    }
+}
 }
 
 @media (max-width: 600px) {
