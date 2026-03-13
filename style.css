@@ -187,16 +187,11 @@ background:#2c2c54;
         gap: 10px;    /* Smaller gap between cards to save space */
         padding: 10px;
     }
-
-    /* .card {
-        padding: 10px; /* Reduced padding inside the box */
-        border-radius: 8px;
-    } */
-
+ 
     .card {
         display: flex;
         flex-direction: column;
-        justify-content: space-between; /* Pushes notes to the bottom */
+        justify-content: space-between; 
         height: 100%;
         padding: 10px;
     }
