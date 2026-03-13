@@ -187,7 +187,7 @@ h1{text-align:center;
     #searchInput {font-size: 14px; 
                 padding: 10px 15px;}
 
-    /* .gallery {grid-template-columns: repeat(2, 1fr); 
+    .gallery {grid-template-columns: repeat(2, 1fr); 
                 gap: 10px;    
                 padding: 10px;}
  
@@ -204,38 +204,16 @@ h1{text-align:center;
         margin: 4px 0 2px 0;}
 
     .card h4 {font-size: 12px; 
-        margin-bottom: 6px;} */
-
-    .gallery {grid-template-columns: repeat(2, 1fr); 
-        gap: 8px;         
-        padding: 8px;}
-
-    .card {
-        padding: 8px;       /* Even tighter padding on mobile */
-    }
-
-    .card img {
-        height: 90px;       /* Much smaller images for phone screens */
-    }
-
-    .card h3 { font-size: 13px; }
-    .card h4 { font-size: 11px; margin-bottom: 4px; }
-
+        margin-bottom: 6px;} 
     .name {font-size: 14px;
             line-height: 1.2;
             margin-bottom: 4px;}
 
     .brand {font-size: 12px;}
 
-    /* .badge {padding: 2px 5px;
+    .badge {padding: 2px 5px;
         font-size: 8px; 
-        margin: 1px;} */
-
-    .badge {
-        padding: 2px 4px;
-        font-size: 8px;
-        margin: 1px;
-    }
+        margin: 1px;} 
     
     .badge-container {overflow-x: auto; }
 
