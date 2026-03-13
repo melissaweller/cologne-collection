@@ -206,10 +206,9 @@ h1{text-align:center;
     .card h4 {font-size: 12px; 
         margin-bottom: 6px;} */
 
-    .gallery {
-        gap: 8px;           /* Less space between the two columns */
-        padding: 8px;
-    }
+    .gallery {grid-template-columns: repeat(2, 1fr); 
+        gap: 8px;         
+        padding: 8px;}
 
     .card {
         padding: 8px;       /* Even tighter padding on mobile */
